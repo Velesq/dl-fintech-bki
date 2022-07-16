@@ -5,7 +5,7 @@ import torch.nn as nn
 from tqdm import tqdm_notebook
 from sklearn.metrics import roc_auc_score
 
-from rnn_baseline.data_generators import batches_generator
+from fin.rnn_baseline.data_generators import batches_generator
 
 
 def train_epoch(model: torch.nn.Module, optimizer: torch.optim.Optimizer, dataset_train: List[str],
@@ -37,7 +37,7 @@ def train_epoch(model: torch.nn.Module, optimizer: torch.optim.Optimizer, datase
     """
     model.train()
     loss_function = nn.BCEWithLogitsLoss(reduction="none")
-    losses = torch.LongTensor().to(device)
+    losses = torch.FloatTensor().to(device)
     samples_counter = 0
     train_generator = batches_generator(dataset_train, batch_size=batch_size, shuffle=shuffle,
                                         device=device, is_train=True, output_format="torch")
